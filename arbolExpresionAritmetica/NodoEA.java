@@ -1,3 +1,5 @@
+package arbolExpresionAritmetica;
+
 public class NodoEA {
     NodoEA left;
     NodoEA right;
@@ -19,6 +21,7 @@ public class NodoEA {
         this.left = null;
         this.right = null;
     }
+
 
     //Metodos para verificar que tipo de valor es
     public boolean esOperador() {
