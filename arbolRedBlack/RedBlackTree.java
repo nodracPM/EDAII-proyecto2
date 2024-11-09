@@ -16,6 +16,20 @@ public class RedBlackTree {
         return root;
     }
 
+    public boolean find(int value) {
+        Queue<RedBlackNode> AuxQueue = new LinkedList<>();
+        AuxQueue.add(root);
+
+        while(!AuxQueue.isEmpty()) {
+            RedBlackNode current = AuxQueue.poll();
+            if(current.getKey() == value) return true;
+
+            if(current.getLeft() != null) AuxQueue.add(current.getLeft());
+            else if(current.getRight() != null) AuxQueue.add(current.getRight());
+        } 
+        return false;
+    }
+
     public void LeftRotation(RedBlackNode node) {
         RedBlackNode x = node; 
         RedBlackNode y = x.getRight();
