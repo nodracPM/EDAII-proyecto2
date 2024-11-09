@@ -28,11 +28,11 @@ public class Heap{
 
     public void delete(int key){
         if(root == null) {
-            System.out.println("No hay elementos en el heap");
+            System.out.println("No hay elementos en el heap.");
             return; 
         }
         else if(!find(key)) {
-            System.out.println("El nodo indicado no existe");
+            System.out.println("El nodo indicado no existe.");
             return; 
         }
 
@@ -163,12 +163,15 @@ public class Heap{
 
     //Se utiliza recursión para imprimir el árbol horizontalmente 
     public void print() {
+        if(root == null) System.out.println("No hay elementos en el Heap.");
+
         print(root, 0);
     }
 
     private void print(Node node, int level) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         
         // Imprime primero los nodos más a la derecha para mantener la coherencia del árbol
         print(node.getRight(), level + 1);

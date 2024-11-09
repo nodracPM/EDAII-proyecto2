@@ -5,7 +5,6 @@ import java.util.Scanner;
 import arbolExpresionAritmetica.ArbolEA;
 import arbolExpresionAritmetica.NodoEA;
 import heap.Heap;
-import heap.Node;
 
 public class Utilerias {
     static Scanner input = new Scanner(System.in);
@@ -13,18 +12,22 @@ public class Utilerias {
     {
         int choice = 0;
         do{
-        System.out.println("_____________Menu Principal_____________");
-        System.out.println("1. Arbol de Expresiones Aritmeticas.");
-        System.out.println("2. Salir.");
-        System.out.print("Ingrese la opcion que desee:");
+        System.out.println("\n________________________Menu Principal__________________________");
+        System.out.println("\n1. Arbol de Expresiones Aritmeticas.");
+        System.out.println("2. Heap.");
+        System.out.println("3. Árbol AVL.");
+        System.out.println("4. Salir.");
+        System.out.print("\nIngresar opción: ");
         choice = input.nextInt();
         
         switch (choice) {
             case 1->{menuAEA();}
-            case 2->{System.out.println("Saliendo... ¡que tenga un excelente dia!");}
+            case 2->{menuHeap();}
+            case 3->{System.out.println("Aquí va el menú del AVL :)");}
+            case 4->{System.out.println("Finalizando ejecución. ¡Que tenga un excelente dia!");}
             default->{System.out.println("Opcion invalida, vuelva a intentarlo.");}
             }
-        }while(choice!=2);
+        }while(choice!=4);
         input.close();
     }
 
@@ -36,18 +39,18 @@ public class Utilerias {
         NodoEA root = null;
         String expresion = null;
         do{
-        System.out.println("_______________Menu Arbol de Expresion Aritmetica_______________");
-        System.out.println("1. Ingresar Expresion.");
+        System.out.println("\n_______________Menu Arbol de Expresion Aritmetica_______________");
+        System.out.println("\n1. Ingresar Expresion.");
         System.out.println("2. Mostrar Arbol.");
         System.out.println("3. Evaluar.");
         System.out.println("4. Regresear al Menu Principal.");
-        System.out.print("Ingresar opcion:");
+        System.out.print("\nIngresar opción: ");
         choice = input.nextInt();
         input.nextLine();
         
             switch (choice) {
                 case 1:
-                    System.out.print("Ingrese la expresion que desee convertir (Por ejemplo: (3 + 2) * (4 - 1)):");
+                    System.out.print("Ingrese la expresion que desee convertir (Por ejemplo: (3 + 2) * (4 - 1)): ");
                     expresion = input.nextLine();
                     arbolEA = new ArbolEA();
                     root = arbolEA.crear(expresion);
@@ -80,9 +83,51 @@ public class Utilerias {
                         break;
                     }
                 case 4:
-                    System.out.println("Regresando al Menu Principal...");
                     return;
                 default:
+                    System.out.println("Por favor ingrese un número de opción válido.");
+                    break;
+            }
+            
+        } while (choice!=4);
+    }
+
+    public static void menuHeap()
+    {
+        Heap heap = new Heap();
+        int choice = 0;
+        int key; 
+
+        do{
+            System.out.println("\n__________________________Menu Heap_____________________________");
+
+            System.out.println("\n1. Agregar clave.");
+            System.out.println("2. Eliminar clave.");
+            System.out.println("3. Mostrar Arbol.");
+            System.out.println("4. Regresear al Menu Principal.");
+            System.out.print("\nIngresar opción: ");
+            choice = input.nextInt();
+            input.nextLine();
+        
+            switch (choice) {
+                case 1:
+                    System.out.print("Ingrese la clave a agregar: ");
+                    key = input.nextInt();
+                    heap.insert(key);
+                    System.out.println("La clave fue agregada con éxito.");
+                    break;
+                case 2:
+                    System.out.print("Ingresa la clave a eliminar: ");
+                    key = input.nextInt();
+                    heap.delete(key);
+                    break; 
+                case 3:
+                    heap.print();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Por favor ingrese un número de opción válido.");
                     break;
             }
             
