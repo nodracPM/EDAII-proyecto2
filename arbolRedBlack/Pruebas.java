@@ -12,6 +12,6 @@ public class Pruebas {
         tree.insert(9);
         
         System.out.println("BFS on the red black tree:");
-        tree.showTree();
+        tree.print();
     }
 }

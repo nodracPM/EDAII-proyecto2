@@ -1,8 +1,9 @@
+package heap; 
 public class Node {
-    int key;
-    Node parent;
-    Node left; 
-    Node right;
+    private int key;
+    private Node parent;
+    private Node left; 
+    private Node right;
 
     public Node(int key) {
         this.key = key;
