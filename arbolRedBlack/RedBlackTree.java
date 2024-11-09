@@ -6,6 +6,7 @@ public class RedBlackTree {
 
     public RedBlackTree(RedBlackNode root) {
         this.root = root;
+        root.setColor(false);
     }
 
     public void setRoot(RedBlackNode root) {
@@ -15,20 +16,44 @@ public class RedBlackTree {
         return root;
     }
 
+    public boolean find(int value) {
+        Queue<RedBlackNode> AuxQueue = new LinkedList<>();
+        AuxQueue.add(root);
+
+        while(!AuxQueue.isEmpty()) {
+            RedBlackNode current = AuxQueue.poll();
+            if(current.getKey() == value) return true;
+
+            if(current.getLeft() != null) AuxQueue.add(current.getLeft());
+            else if(current.getRight() != null) AuxQueue.add(current.getRight());
+        } 
+        return false;
+    }
+
     public void LeftRotation(RedBlackNode node) {
         RedBlackNode x = node; 
         RedBlackNode y = x.getRight();
-
+        RedBlackNode parent = x.getParent();
+        
         x.setRight(y.getLeft());
         y.setLeft(x);
+        y.setParent(x.getParent());
+        x.setParent(y);
+        if(parent.getLeft() == x) parent.setLeft(y);
+        else parent.setRight(y);
     }
 
     public void RightRotation(RedBlackNode node) {
         RedBlackNode x = node; 
         RedBlackNode y = x.getLeft();
+        RedBlackNode parent = x.getParent();
 
         x.setLeft(y.getRight());
         y.setRight(x);
+        y.setParent(x.getParent());
+        x.setParent(y);
+        if(parent.getLeft() == x) parent.setLeft(y);
+        else parent.setRight(y);
     }
 
     public void fixInsertion(RedBlackNode node) {
@@ -38,9 +63,62 @@ public class RedBlackTree {
         // case 3: z's uncle is black (triangle)
         // case 4: z's uncle is black (line)
 
-        System.out.println("Fixing insertion");
+        RedBlackNode current = node;
 
-        
+        while(current != root && current.getParent().getColor()) {
+            //find z's uncle
+            RedBlackNode parent = current.getParent();
+            RedBlackNode grandparent = current.getParent().getParent();
+            RedBlackNode uncle; 
+            if(grandparent.getLeft() != parent) uncle = grandparent.getLeft(); 
+            else uncle = grandparent.getRight();
+
+            //if z's uncle is red
+            if(uncle != null && uncle.getColor()) {
+                if(grandparent == root) {
+                    parent.setColor(false);
+                    if(parent.getLeft() == current) { 
+                        RightRotation(parent);
+                    }
+                    else LeftRotation(parent);
+                }
+
+                else {
+                    uncle.setColor(false);
+                    parent.setColor(false);
+                    grandparent.setColor(true);
+                }
+                current = grandparent;
+            }
+    
+    
+            //if z's uncle is black
+            else if(grandparent != null){
+                System.out.println("ENTRA2");
+                //case 3: z's uncle is black (triangle)
+                if(grandparent.getLeft() == parent && parent.getRight() == node) {
+                    LeftRotation(parent);
+                    current = parent;
+                }
+                else if(grandparent.getRight() == parent && parent.getLeft() == node) {
+                    RightRotation(parent);
+                    current = parent;
+                }
+                
+                //case 4: z's uncle is black (line)
+                else {
+                    if(grandparent.getLeft() == parent && parent.getLeft() == node) RightRotation(grandparent);
+                    else if(grandparent.getRight() == parent && parent.getRight() == node) LeftRotation(grandparent);
+                    
+                    parent.setColor(false);
+                    grandparent.setColor(true);
+                    current = grandparent;
+                }
+                
+            }    
+            //System.out.println("Fixing insertion");
+        }    
+        root.setColor(false); 
     }
 
     public void insert(int value) {
@@ -86,5 +164,19 @@ public class RedBlackTree {
 
     public void delete(int value) {
 
+    }
+
+    public void showTree() {
+        Queue<RedBlackNode> AuxQueue = new LinkedList<>();
+        AuxQueue.add(root);
+
+        while(!AuxQueue.isEmpty()) {
+            RedBlackNode current = AuxQueue.poll();
+            if(!current.getColor()) System.out.println("*" + current.getKey());
+            else System.out.println(current.getKey());
+
+            if(current.getLeft() != null) AuxQueue.add(current.getLeft());
+            if(current.getRight() != null) AuxQueue.add(current.getRight());
+        }
     }
 }

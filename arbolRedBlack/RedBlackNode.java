@@ -39,6 +39,9 @@ public class RedBlackNode {
         return right;
     }   
 
+    public void setColor(boolean color) {
+        this.color = color;
+    }
     public boolean getColor() {
         return color;
     }   
