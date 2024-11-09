@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+
 public class RedBlackTree {
     private RedBlackNode root;
 
@@ -178,5 +179,28 @@ public class RedBlackTree {
             if(current.getLeft() != null) AuxQueue.add(current.getLeft());
             if(current.getRight() != null) AuxQueue.add(current.getRight());
         }
+    }
+
+    //Se utiliza recursión para imprimir el árbol horizontalmente 
+    public void print() {
+        print(root, 0);
+    }
+
+    private void print(RedBlackNode node, int level) {
+        if (node == null)
+            return;
+        
+        // Imprime primero los nodos más a la derecha para mantener la coherencia del árbol
+        print(node.getRight(), level + 1);
+    
+        // Imprime espacios para representar el nivel del nodo
+        for (int i = 0; i < level; i++)
+            System.out.print("    ");
+    
+        if(node.getColor()) System.out.println(node.getKey());
+        else System.out.println("*" + node.getKey());
+        
+        // Imprime después los nodos más a la izquierda para mantener la coherencia del árbol
+        print(node.getLeft(), level + 1);
     }
 }
