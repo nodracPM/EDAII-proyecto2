@@ -1,14 +1,12 @@
-package arbolExpresionAritmetica;
-
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class ArbolEA {
-    Stack<String> pOperadores;  //Pila para los operadores
-    Stack<NodoEA> pOperandos;   //Pila para los operandos
-    final String operadores;    //Este string esta hecho para almacenar los diferentes operadores como + * / -
-    final String blanco;
+    private Stack<String> pOperadores;  //Pila para los operadores
+    private Stack<NodoEA> pOperandos;   //Pila para los operandos
+    private final String operadores;    //Este string esta hecho para almacenar los diferentes operadores como + * / -
+    private final String blanco;
 
     public ArbolEA() {
         pOperadores = new Stack<>();
@@ -68,7 +66,7 @@ public class ArbolEA {
         }
     }
 
-    public void guardarSubArbol() {
+    private void guardarSubArbol() {
         if (!pOperandos.isEmpty() && !pOperadores.isEmpty()) {
             String operador = pOperadores.pop();  // Operador actual
             NodoEA nodo2 = pOperandos.pop();  // Operando 1
@@ -84,8 +82,8 @@ public class ArbolEA {
     private ArrayList<NodoEA> postOrden(NodoEA n) {
         ArrayList<NodoEA> nodoEAs = new ArrayList<>();
         if (n != null) {
-            nodoEAs.addAll(postOrden(n.left));  
-            nodoEAs.addAll(postOrden(n.right)); 
+            nodoEAs.addAll(postOrden(n.getLeft()));  
+            nodoEAs.addAll(postOrden(n.getRight())); 
             nodoEAs.add(n);  
         }
         return nodoEAs;
@@ -99,7 +97,7 @@ public class ArbolEA {
         {
             if(nodo.esOperando())
             {
-                String valor = nodo.valor;
+                String valor = nodo.getValor();
                 datos.push(Double.parseDouble(valor)); //Si son operadondos se convierten de String a double
             }else if(nodo.esOperador())
             {
@@ -108,7 +106,7 @@ public class ArbolEA {
                 double resultado = 0;
 
                 //En otro caso se sacan 2 valores de la pila y se realiza su respectiva operacion
-                switch(nodo.valor)
+                switch(nodo.getValor())
                 {
                     case "+"->{resultado = operando1 + operando2;}
                     case "-"->{resultado = operando1 - operando2;}
@@ -134,13 +132,13 @@ public class ArbolEA {
     public void imprimirArbol(NodoEA n, String sangria) {
         if (n != null) {
             // Imprimir subárbol derecho primero (para que quede en la parte superior)
-            imprimirArbol(n.right, sangria + "   ");
+            imprimirArbol(n.getRight(), sangria + "   ");
             
             // Imprimir el valor del nodo con la indentación correspondiente
-            System.out.println(sangria + n.valor);
+            System.out.println(sangria + n.getValor());
             
             // Imprimir subárbol izquierdo
-            imprimirArbol(n.left, sangria + "   ");
+            imprimirArbol(n.getLeft(), sangria + "   ");
         }
     }
 }
