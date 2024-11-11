@@ -40,12 +40,15 @@ public class Utilerias {
         
             switch (choice) {
                 case 1:
+                    System.out.println("\n");
                     System.out.print("Ingrese la expresion que desee convertir (Por ejemplo: (3 + 2) * (4 - 1)):");
                     expresion = input.nextLine();
                     arbolEA = new ArbolEA();
                     root = arbolEA.crear(expresion);
                     flag = true;
+                    System.out.println("\n");
                     System.out.println("Se creo adecuadamente el arbol con la expresion: "+expresion);
+                    System.out.println("\n");
                     break;
                 case 2:
                     if(!flag)
@@ -54,26 +57,34 @@ public class Utilerias {
                         break;
                     } else
                     {
+                        System.out.println("\n");
                         System.out.println("Arbol de Expresiones Aritmeticas: ");
                         System.out.println("\n");
                         arbolEA.imprimirArbol(root, "");
+                        System.out.println("\n");
                         break;
                     }
                 case 3:
                     if(!flag)
                     {
                     System.out.println("Debe ingresar una expresion antes.");
+                    System.out.println("\n");
+                    
                     break;
                     } else
                     {
+                        System.out.println("\n");
                         System.out.println("La evaluacion del arbol con respecto a la expresion: "+ expresion);
                         System.out.println("\n");
                         arbolEA.imprimirArbol(root, "");
+                        System.out.println("\n");
                         System.out.println("Es igual a: " + arbolEA.evaluar(root));
+                        System.out.println("\n");
                         break;
                     }
                 case 4:
                     System.out.println("Regresando al Menu Principal...");
+                    System.out.println("\n");
                     return;
                 default:
                     break;
