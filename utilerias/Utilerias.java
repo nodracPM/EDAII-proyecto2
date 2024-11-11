@@ -1,10 +1,11 @@
 
 package utilerias;
 
-import java.util.Scanner;
+import arbolAVL.*;
 import arbolExpresionAritmetica.ArbolEA;
 import arbolExpresionAritmetica.NodoEA;
 import heap.Heap;
+import java.util.Scanner;
 
 public class Utilerias {
     static Scanner input = new Scanner(System.in);
@@ -23,7 +24,7 @@ public class Utilerias {
         switch (choice) {
             case 1->{menuAEA();}
             case 2->{menuHeap();}
-            case 3->{System.out.println("Aquí va el menú del AVL :)");}
+            case 3->{menuAVL();}
             case 4->{System.out.println("Finalizando ejecución. ¡Que tenga un excelente dia!");}
             default->{System.out.println("Opcion invalida, vuelva a intentarlo.");}
             }
@@ -132,5 +133,52 @@ public class Utilerias {
             }
             
         } while (choice!=4);
+    }
+
+    public static void menuAVL()
+    {
+        ArbolAVL arbolAVL = new ArbolAVL();
+        int choice = 0;
+        int key; 
+
+        do{
+            System.out.println("\n__________________________Menu Árbol AVL_____________________________");
+
+            System.out.println("\n1. Agregar clave.");
+            System.out.println("2. Buscar clave.");
+            System.out.println("3. Eliminar clave.");
+            System.out.println("4. Mostrar Arbol.");
+            System.out.println("5. Regresear al Menu Principal.");
+            System.out.print("\nIngresar opción: ");
+            choice = input.nextInt();
+            input.nextLine();
+        
+            switch (choice) {
+                case 1:
+                    System.out.print("Ingrese la clave a agregar: ");
+                    key = input.nextInt();
+                    arbolAVL.insertar(key);
+                    System.out.println("La clave fue agregada con éxito.");
+                    break;
+                case 2:
+                    System.out.println("Ingresa la clave a buscar.");
+                    key = input.nextInt();
+                    arbolAVL.buscar(key);
+                case 3:
+                    System.out.print("Ingresa la clave a eliminar: ");
+                    key = input.nextInt();
+                    arbolAVL.eliminar(key);
+                    break; 
+                case 4:
+                    arbolAVL.imprimirArbol(arbolAVL.raiz, "");
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Por favor ingrese un número de opción válido.");
+                    break;
+            }
+            
+        } while (choice!=5);
     }
 }
